@@ -75,11 +75,20 @@ button{
             exp.value=cal;
 
         }
-        function addvalue(x){
-    if(x === 'AC'){
+        function addvalue(x) {
+    if (x === 'AC') {
         exp.value = '';
-    } else if(x === 'x'){
+    } else if (x === 'x') {
         exp.value = exp.value.slice(0, -1);
+    } else if (x === '.') {
+        let lastChar = exp.value[exp.value.length - 1];
+        if (isNaN(lastChar) || lastChar === '.') {
+            // do nothing, ignore multiple dots
+        } else {
+            exp.value += x;
+        }
+    } else if (x === '+' || x === '-' || x === '*' || x === '/') {
+        exp.value += x;
     } else {
         exp.value += x;
     }
