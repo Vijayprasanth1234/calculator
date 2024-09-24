@@ -99,8 +99,6 @@ button{
 // }
 
 
-
-
 let hasResult = false; // flag to indicate a result is displayed
 let lastInputWasOperator = false; // flag to indicate the last input was an operator
 
@@ -131,8 +129,13 @@ function addvalue(x) {
         lastInputWasOperator = true;
     } else {
         if (hasResult) {
-            exp.value += x; // append number to the result
-            hasResult = false; // reset the flag
+            if (lastInputWasOperator) {
+                exp.value += x; // append number to the result
+                hasResult = false; // reset the flag
+            } else {
+                exp.value = ''; // clear the previous result
+                exp.value += x; // start a new calculation from scratch
+            }
         } else {
             exp.value += x; // start a new calculation from scratch
         }
