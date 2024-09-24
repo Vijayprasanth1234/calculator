@@ -75,26 +75,78 @@ button{
             exp.value=cal;
 
         }
-        function addvalue(x) {
+//         function addvalue(x) {
+//     if (x === 'AC') {
+//         exp.value = '';
+//     } else if (x === 'x') {
+//         exp.value = exp.value.slice(0, -1);
+//     } else if (x === '.') {
+//         let lastChar = exp.value[exp.value.length - 1];
+//         let hasDecimal = /\./.test(exp.value.match(/[^+\-*\/]+$/)[0]);
+//         let isOperator = /[+\-*/]/.test(lastChar);
+        
+//         if (isOperator) {
+//             exp.value += '0.';
+//         } else if (!hasDecimal) {
+//             exp.value += x;
+//         }
+//     } else if (x === '+' || x === '-' || x === '*' || x === '/') {
+//         exp.value += x;
+//     } 
+//     else {
+//         exp.value += x;
+//     }
+// }
+
+
+function addvalue(x) {
     if (x === 'AC') {
         exp.value = '';
+        hasResult = false;
+        lastInputWasOperator = false;
     } else if (x === 'x') {
         exp.value = exp.value.slice(0, -1);
     } else if (x === '.') {
         let lastChar = exp.value[exp.value.length - 1];
-        if (isNaN(lastChar) || lastChar === '.') {
-            // do nothing, ignore multiple dots
-        } else {
+        let hasDecimal = /\./.test(exp.value.match(/[^+\-*\/]+$/)[0]);
+        let isOperator = /[+\-*/]/.test(lastChar);
+        
+        if (isOperator) {
+            exp.value += '0.';
+        } else if (!hasDecimal) {
             exp.value += x;
         }
     } else if (x === '+' || x === '-' || x === '*' || x === '/') {
-        exp.value += x;
+        if (lastInputWasOperator) {
+            // replace the last operator with the new one
+            exp.value = exp.value.slice(0, -1) + x;
+        } else {
+            exp.value += x;
+        }
+        lastInputWasOperator = true;
     } else {
-        exp.value += x;
+        if (hasResult) {
+            if (lastInputWasOperator) {
+                exp.value += x; // append number to the result
+                hasResult = false; // reset the flag
+            } else {
+                exp.value = ''; // clear the previous result
+                exp.value += x; // start a new calculation from scratch
+            }
+        } else {
+            exp.value += x; // start a new calculation from scratch
+        }
+        lastInputWasOperator = false;
     }
 }
 
-    </script>
+function result() {
+    let cal = eval(exp.value);
+    exp.value = cal;
+    hasResult = true; // set the flag to indicate a result is displayed
+    lastInputWasOperator = false; // reset the flag
+}
+  </script>
     
 </body>
 </html>
