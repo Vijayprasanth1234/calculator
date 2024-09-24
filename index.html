@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      div {
+  border: 4px solid black;
+  box-shadow: 0 0 13px black;
+  width: 300px;
+  background-size: 400px; /* make the background larger than the element */
+  background-image: linear-gradient(43deg, navy 50%, hsl(86, 78%, 50%) 46%,hsl(321, 78%, 50%) 46%, #FFCC70);
+  color: transparent;
+  font-weight: 700;
+  animation: flow 2s infinite; /* animate the background */
+}
+
+@keyframes flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+button{
+    width: 50px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 600px;
+    
+}
+#display{
+    font-size: 35px;
+}
+
+    </style>
+</head>
+<body>
+    <div><br>
+    <center><input type="text" id="display" style="height: 50px; width: 250px;
+    box-shadow: 0 0 10px black;"><br><br>
+    <button onclick="addvalue('AC')">AC</button>
+    <button onclick="addvalue('%')">%</button>
+    <button onclick="addvalue('x')">x</button>
+    <button onclick="addvalue('/')">/</button><br><br>
+    <button onclick="addvalue('7')">7</button>
+    <button onclick="addvalue('8')">8</button>
+    <button onclick="addvalue('9')">9</button>
+    <button onclick="addvalue('*')">X</button><br><br>
+    <button onclick="addvalue('4')">4</button>
+    <button onclick="addvalue('5')">5</button>
+    <button onclick="addvalue('6')">6</button>
+    <button onclick="addvalue('-')">-</button><br><br>
+    <button onclick="addvalue('1')">1</button>
+    <button onclick="addvalue('2')">2</button>
+    <button onclick="addvalue('3')">3</button>
+    <button onclick="addvalue('+')">+</button><br><br>
+    <button onclick="addvalue('00')">00</button>
+    <button onclick="addvalue('0')">0</button>
+    <button onclick="addvalue('.')">.</button>
+    <button onclick="result()">=</button>
+    </center>
+    <p id="p1"></p></div>
+    <script>
+        let p=document.getElementById("p1")
+        let exp=document.getElementById("display");
+
+        function addvalue(x){
+            exp.value+=x
+        }
+        function result(){
+            let cal=eval(exp.value)
+            exp.value=cal;
+
+        }
+        function addvalue(x){
+    if(x === 'AC'){
+        exp.value = '';
+    } else if(x === 'x'){
+        exp.value = exp.value.slice(0, -1);
+    } else {
+        exp.value += x;
+    }
+}
+
+    </script>
+    
+</body>
+</html>
